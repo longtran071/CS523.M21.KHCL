@@ -12,5 +12,5 @@
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
 # Chủ đề Seminar:
-*Tên chủ đề: Cây phân đoạn 
-*Link demo: https://thanhalone0106.github.io/?fbclid=IwAR3EtwqwoJ_VX_48UNeIdjBr8bQ8v7Zz_SpYd21ATfC50ibafpZfUuIwWco
+* Tên chủ đề: Cây phân đoạn 
+* Link demo: https://thanhalone0106.github.io/?fbclid=IwAR3EtwqwoJ_VX_48UNeIdjBr8bQ8v7Zz_SpYd21ATfC50ibafpZfUuIwWco
