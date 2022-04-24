@@ -9,6 +9,7 @@
 # Danh sách thành viên:
 | Họ và tên  | MSSV |
 | ------------- | ------------- |
+| Lữ Thị Thúy Quỳnh  | 20521826  |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
 # Chủ đề Seminar:
