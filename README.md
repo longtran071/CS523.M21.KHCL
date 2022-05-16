@@ -14,4 +14,4 @@
 | Trần Duy Thanh  | 20521925 |
 # Chủ đề Seminar:
 * Tên chủ đề: Cây phân đoạn 
-* Link demo: https://thanhalone0106.github.io/?fbclid=IwAR3EtwqwoJ_VX_48UNeIdjBr8bQ8v7Zz_SpYd21ATfC50ibafpZfUuIwWco
+* Link demo: https://thanhalone0106.github.io/
