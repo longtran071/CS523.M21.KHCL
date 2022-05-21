@@ -54,9 +54,9 @@
           <a id="title-Sum" onClick="x=3">Sum ST</a>
           </span>  -->
           <span id="title">
-            <a id='title-Min' onClick="x=1">Min ST</a>
+            <a id='title-Min'class='selected-viz' onClick="x=1">Min ST</a>
             <a id='title-Max'onClick="x=2">Max ST</a>
-            <a id='title-Sum'class='selected-viz'onClick="x=3">Sum ST</a>
+            <a id='title-Sum'onClick="x=3">Sum ST</a>
             </span>
        </ul>  
      </div>
@@ -97,10 +97,9 @@
   </div>
   <div class="update action-menu-pullout" id="update_action">
   <div id="update-input-l" class="new-menu-option">
-  L = <input id="v-update-l" type="number" title="Enter an integer L" placeholder="L" autocomplete="off" value="0"> </div>
+  I = <input id="v-update-l" type="number" title="Enter an integer L" placeholder="" autocomplete="off" value="0"> </div>
   <div id="update-input-r" class="new-menu-option">
-  R = <input id="v-update-r" type="number" title="Enter an integer R" placeholder="R" autocomplete="off" value="6"> </div>
-  <div id="update-input-value" class="new-menu-option">
+
   VALUE = <input id="v-update-value" type="number" title="Enter an integer VALUE" placeholder="V" autocomplete="off" value="6"> </div>
   <div id="update-go" class="execAction new-menu-option coloured-menu-option" onClick=" setup4(),draw_update()">
   <p>Go</p>

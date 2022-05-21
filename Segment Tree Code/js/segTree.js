@@ -102,9 +102,9 @@ class SegmentTree {
 	  return this.tree;
     }
     //Update cây min
-    updateWrapper_min(tree, index, l, r, u,v,val, BT)
+    updateWrapper_min(tree, index, l, r, i,val, BT)
     {
-        if (v < l || r < u) {
+        if (i < l || r < i) {
             return;
         }
         BT.push(index);
@@ -116,19 +116,19 @@ class SegmentTree {
         const mid = l + Math.floor((r - l) / 2)
         const left = this.left(index);
         const right = this.right(index);
-        this.updateWrapper_min(tree, left, l, mid, u , v , val, BT);
-        this.updateWrapper_min(tree, right, mid + 1, r, u, v, val, BT);
+        this.updateWrapper_min(tree, left, l, mid, i , val, BT);
+        this.updateWrapper_min(tree, right, mid + 1, r, i, val, BT);
         this.tree[index] = Math.min(this.tree[left], this.tree[right]);
     }  
-    update_min(u,v,val,BT)
+    update_min(i,val,BT)
     {
-        this.updateWrapper_min(tree, 0, 0, this.nums.length - 1, u,v,val,BT);
+        this.updateWrapper_min(tree, 0, 0, this.nums.length - 1, i,val,BT);
         return this.tree;
     }
     //Update cây max
-    updateWrapper_max(tree, index, l, r, u,v,val, BT)
+    updateWrapper_max(tree, index, l, r, i,val, BT)
     {
-        if (v < l || r < u) {
+        if (i < l || r < i) {
             return;
         }
         BT.push(index);
@@ -140,19 +140,19 @@ class SegmentTree {
         const mid = l + Math.floor((r - l) / 2)
         const left = this.left(index);
         const right = this.right(index);
-        this.updateWrapper_max(tree, left, l, mid, u , v , val, BT);
-        this.updateWrapper_max(tree, right, mid + 1, r, u, v, val, BT);
+        this.updateWrapper_max(tree, left, l, mid, i , val, BT);
+        this.updateWrapper_max(tree, right, mid + 1, r, i, val, BT);
         this.tree[index] = Math.max(this.tree[left], this.tree[right]);
     }  
-    update_max(u,v,val,BT)
+    update_max(i,val,BT)
     {
-        this.updateWrapper_max(tree, 0, 0, this.nums.length - 1, u,v,val,BT);
+        this.updateWrapper_max(tree, 0, 0, this.nums.length - 1, i,val,BT);
         return this.tree;
     }
     //Update cây sum
-    updateWrapper_sum(tree, index, l, r, u,v,val, BT)
+    updateWrapper_sum(tree, index, l, r, i,val, BT)
     {
-        if (v < l || r < u) {
+        if (i < l || r < i) {
             return;
         }
         BT.push(index);
@@ -164,13 +164,15 @@ class SegmentTree {
         const mid = l + Math.floor((r - l) / 2)
         const left = this.left(index);
         const right = this.right(index);
-        this.updateWrapper_sum(tree, left, l, mid, u , v , val, BT);
-        this.updateWrapper_sum(tree, right, mid + 1, r, u, v, val, BT);
+        this.updateWrapper_sum(tree, left, l, mid, i, val, BT);
+        this.updateWrapper_sum(tree, right, mid + 1, r, i, val, BT);
         this.tree[index] = this.tree[left] + this.tree[right];
     }  
-    update_sum(u,v,val,BT)
+    update_sum(i,val,BT)
     {
-        this.updateWrapper_sum(tree, 0, 0, this.nums.length - 1, u,v,val,BT);
+        this.updateWrapper_sum(tree, 0, 0, this.nums.length - 1, i,val,BT);
         return this.tree;
     }
+    
 }
+

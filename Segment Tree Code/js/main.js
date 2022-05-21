@@ -11,7 +11,7 @@ let BT = [] // List lưu index của các node được truy cập đến trong 
 let val = 2;//giá trị update
 let left;//vị trí cho khoảng update
 let right;//vị trí cho khoảng update
-let x=0;
+let x=1;
 let random=0;
 let check=0;
 let y=0;
@@ -223,28 +223,23 @@ function setup4() {
     var input_l_update = $('#v-update-l').val();
     var input_r_update = $('#v-update-r').val();
     
-    if(input_l_update>input_r_update)
-    {
-        alert('Giá trị L or R không hợp lê.');
-    }
-    else{
-        if(input_r_update>nums.length-1)
+   
+        if(input_l_update>nums.length-1 || input_l_update<0)
         {
-            alert('Giá trị L or R không hợp lê.')
+            alert('Giá trị I không hợp lê.');
         }
         else{
     if(x==1){
-        segTree2 = segTree.update_min(input_l_update,input_r_update,val,BT);
+        segTree2 = segTree. update_min(input_l_update,val,BT);
     }
     else if(x==2){ 
-        segTree2 = segTree.update_max(input_l_update,input_r_update,val,BT);
+        segTree2 = segTree.update_max(input_l_update,val,BT);
     }
     else {
-        segTree2 = segTree.update_sum(input_l_update,input_r_update,val,BT);
+        segTree2 = segTree.update_sum(input_l_update,val,BT);
     }
     console.log(BT);
 }
-    }
 }
 
 function draw_update() {
