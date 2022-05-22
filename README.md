@@ -9,7 +9,7 @@
 # Danh sách thành viên:
 | Họ và tên  | MSSV |
 | ------------- | ------------- |
-| Lữ Thị Thúy Quỳnh  | 20521826  |
+| Lữ Thị Thúy Quỳnh  | 20521826 <Nhóm trưởng> |
 | Trần Văn Long  | 20521576  |
 | Trần Duy Thanh  | 20521925 |
 # Chủ đề Seminar:
