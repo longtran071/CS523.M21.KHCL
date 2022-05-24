@@ -131,7 +131,10 @@ class Tree {
             } 
         }
         else{
-            for(let i=0;i<=a-1;i++){
+            let x_mu = parseInt(Math.ceil(Math.log(a) / Math.log(2)));
+        //Maximum size of segment tree
+            let max_size = 2 * parseInt(Math.pow(2, x_mu) )-1;
+            for(let i=0;i<max_size;i++){
                 this.nums_list[i]=new Node(0,i);
             }
         }
@@ -194,23 +197,7 @@ class Tree {
                 
         }   
     
-        // if(this.node_n==this.id_max && this.solan_node==1){
-        //     for(let i=0;i<=this.id_max;i++){
-        //         console.log(this.node_list[i]);
-        //     }
-        //     this.solan_node++;
-        // }
-        // //click mouse to show the value of node 
-        // if(dist(mouseX,mouseY,node.x,node.y)<node.radius)
-        //     node.c=2;
-        // //console.log(node.c);
-        // if (node.c==2 && isNaN(node.value)==false){
-            
-        //     //draw override 
-        //     //show Node
-        //     //change color
-        //     this.draw_text_node(node);
-        // }
+       
         if(node.left){
             this.drawLine(node, node.left);
             
@@ -252,20 +239,64 @@ class Tree {
             )
         }
     }
-    draw_number_text(node){
-        fill('white');
-        strokeWeight(1);
-        stroke('blue');
-        circle(node.x,node.y,node.radius*2+4);
-        //text
-        stroke(node.color);
-        textSize(30);
-        fill(node.color);
-        textAlign(CENTER, CENTER);
-        text(node.value,node.x,node.y);  
-
+    //Dùng cho node ở dưới
+    draw_number_text(node,value){
+        
+            fill('orange');
+            stroke('grey');
+            strokeWeight(1);
+            circle(node.x,node.y,(node.radius-10)*2);
+            //text
+            stroke('white');
+            strokeWeight(0.7);
+            textSize(20);
+            fill('white');
+            textAlign(CENTER, CENTER);
+            
+            text(value,node.x,node.y);
+    
     }
+    draw_number_text2(node,value){
+        
+        fill('white');
+        stroke('orange');
+        strokeWeight(1);
+        circle(node.x,node.y,(node.radius-10)*2);
+        //text
+        stroke('orange');
+        strokeWeight(0.7);
+        textSize(20);
+        fill('red');
+        textAlign(CENTER, CENTER);
+        
+        text(value,node.x,node.y);
+
+}
     draw_light_node(node,op){
+        
+        fill('white');
+        stroke('blue');
+        strokeWeight(1);
+        circle(node.x,node.y,(node.radius-10)*2);
+        //text
+        stroke('white');
+        strokeWeight(1);
+        textSize(15);
+        fill('white');
+        textAlign(CENTER, CENTER);
+        if(op!=-1)
+            text(node.value,node.x,node.y);
+        if(op==1 ||op==-1){
+            stroke('red');
+            fill('red');
+            strokeWeight(0.4);
+            textSize(15);
+            text(node.id,node.x,node.y+((node.radius-10)*2)/2+25);
+        }
+        
+    }
+    //Dùng cho query
+    draw_light_node1(node,op){
         
         fill('orange');
         stroke('grey');
@@ -286,6 +317,19 @@ class Tree {
             text(node.id,node.x,node.y+(node.radius*2)/2+25);
         }
         
+    }
+    draw_number_text1(node){
+        fill('white');
+        strokeWeight(1);
+        stroke('blue');
+        circle(node.x,node.y,node.radius*2+4);
+        //text
+        stroke(node.color);
+        textSize(30);
+        fill(node.color);
+        textAlign(CENTER, CENTER);
+        text(node.value,node.x,node.y);  
+
     }
     draw_getquery(answer,qs,qe,op){
         //text style
@@ -329,34 +373,33 @@ class Tree {
            
     }
     draw_query_light(node_con,time,op,qs,qe){
-        setTimeout(()=>{this.draw_light_node(node_con,0);},time);
+        setTimeout(()=>{this.draw_light_node1(node_con,0);},time);
         if(op==1){
-            setTimeout(()=>{this.draw_number_text(node_con);},time+1500);
+            setTimeout(()=>{this.draw_number_text1(node_con);},time+1500);
             
         }
         if(op==3){
             // setTimeout(()=>{this.draw_getquery(qs,qe)},time+1500);
         }
     }
-    draw_light_annimation(node,time){
-        //vẽ node nền cam chữ trắng
-        setTimeout(()=>{this.draw_number_text(node)},time);
-    }
+   
     draw_number_node(nums,op){
         //Tạo mảng dãy số nhập vào 
         this.create_nodelist(nums.length,0);
         //Vẽ dãy số nhập vào 
-        let x_max=80;
+        let x_max=35;
         let y_max=this.node_list[this.id_max].y+150;
         let radius_max=this.node_list[this.id_max].radius;
-        for (let i=0;i<nums.length;i++){
-            let x_node=x_max+radius_max*i*2+30*i;
+        let x_mu = parseInt(Math.ceil(Math.log(nums.length) / Math.log(2)));
+        //Maximum size of segment tree
+        let max_size = 2 * parseInt(Math.pow(2, x_mu) )-1;
+        for (let i=0;i<max_size;i++){
+            let x_node=x_max+radius_max*i*2+4*i;
             this.nums_list[i].x=x_node;
             this.nums_list[i].y=y_max;
-            this.nums_list[i].value=nums[i];
             this.nums_list[i].id=i;
             //Hiện thị node number 
-            this.draw_light_node(this.nums_list[i],1);
+            this.draw_light_node(this.nums_list[i],-1);
         }
         
     }
@@ -434,6 +477,16 @@ class Tree {
     reset(){
         this.draw();
     }
+    draw_light_annimation(node,time,value){
+        //vẽ node nền cam chữ trang
+        node.value=value;
+        setTimeout(()=>{this.draw_number_text(node,node.value)},time);
+    }
+    draw_light_annimation1(node,time,value){
+        //vẽ node nền cam chữ trang
+        node.value=value;
+        setTimeout(()=>{this.draw_number_text2(node,node.value)},time);
+    }
     draw_build(){
         let time=0;
         let i_max=0;
@@ -464,20 +517,26 @@ class Tree {
                         this.draw_show_node1(this.node_list[(j-1)/2].left,this.node_list[(j-1)/2]);
                     }, time_show*(k)+time);
                     time+=time_show;
-                    if(this.node_list[j].L==this.node_list[j].R)
-                        {
-                            this.draw_light_annimation(this.nums_list[this.node_list[j].L],time+time_dequy*them_node);
-                            them_node++;
-                        }
+                    console.log('j'+this.node_list[j].value);
+
+                    
+                    //VẼ NODE bên trái dưới mảng 
+                     {   
+            
+                        this.draw_light_annimation(this.nums_list[this.node_list[j].id],time+time_dequy*them_node,this.node_list[j].value);
+                        them_node++;
+                    }
+                                   
+                        
                 }
                 else{
                     setTimeout(() => {
                         this.draw_show_node1(this.node_list[(j-1)/2].left,this.node_list[(j-1)/2]);
                     }, time_dequy*(k)+time);
                     time+=time_dequy;
-                    if(this.node_list[j].L==this.node_list[j].R)
+                   
                         {
-                            this.draw_light_annimation(this.nums_list[this.node_list[j].L],time+time_dequy*them_node);
+                            this.draw_light_annimation(this.nums_list[this.node_list[1].id],time+time_dequy*them_node,this.node_list[1].value);
                             them_node++;
                         }
                 }
@@ -506,9 +565,9 @@ class Tree {
                                     time+=time_dequy;
                                     k++;
                                     //Hiện node đã được thêm vào cây 
-                                        if(this.node_list[con_index].L==this.node_list[con_index].R)
-                                            {
-                                            this.draw_light_annimation(this.nums_list[this.node_list[con_index].L],time+time_dequy*them_node);
+                                    
+                                        {
+                                            this.draw_light_annimation(this.nums_list[this.node_list[con_index].id],time+time_dequy*them_node,this.node_list[con_index].value);
                                                 them_node++;
                                         }
                                     setTimeout(() => {
@@ -517,9 +576,9 @@ class Tree {
                                     time+=time_dequy;
                                     k++;
                                     //Hiện node đã được thêm vào cây 
-                                        if(this.node_list[con_index+1].L==this.node_list[con_index+1].R)
+                                        
                                         {
-                                        this.draw_light_annimation(this.nums_list[this.node_list[con_index+1].L],time+time_dequy*them_node);
+                                        this.draw_light_annimation(this.nums_list[this.node_list[con_index+1].id],time+time_dequy*them_node,this.node_list[con_index+1].value);
                                         them_node++;
                                         }
                                 //Show node phải 
@@ -527,10 +586,11 @@ class Tree {
                                     this.draw_show_node2(this.node_list[cha_index].right,this.node_list[cha_index]);
                                     }, time_dequy*k+time);
                                 time+=time_dequy;
+                                
                                 //Hiện node đã được thêm vào cây
-                                    if(this.node_list[cha_index].L==this.node_list[cha_index].R)
+                        
                                     {
-                                    this.draw_light_annimation(this.nums_list[this.node_list[cha_index].L],time+time_dequy*them_node);
+                                    this.draw_light_annimation(this.nums_list[this.node_list[index].id],time+time_dequy*them_node,this.node_list[index].value);
                                     them_node++;
                                     }
                 
@@ -541,9 +601,8 @@ class Tree {
                                     }, time_dequy*k+time);
                                 time+=time_dequy;
                                 //Hiện node đã được thêm vào cây
-                                if(this.node_list[j+1].L==this.node_list[j+1].R)
                                 {
-                                this.draw_light_annimation(this.nums_list[this.node_list[j+1].L],time+time_dequy*them_node);
+                                this.draw_light_annimation(this.nums_list[this.node_list[j+1].id],time+time_dequy*them_node,this.node_list[j+1].value);
                                 them_node++;
                                 }
             
@@ -559,11 +618,18 @@ class Tree {
                 this.draw_recursive(this.node_list[0],this.node_list[2],1);
             }, time_dequy*3+time);
             time+=time_dequy*3;
+            //Hiển thị node 2 ơ trong mảng
+            {
+                this.draw_light_annimation(this.nums_list[this.node_list[2].id],time+time_dequy*2*them_node,this.node_list[2].value);
+                //them_node++;
+            }
             for(let  i=2, n=1;this.node_list[i].childrenLeft!=0;i=i*2+1,n++){
                 setTimeout(() => {
                     this.draw_recursive(this.node_list[i],this.node_list[i].left,1);
                 }, time_dequy*n+time);
                 time+=time_dequy;
+                //Hiện node đã được thêm vào cây
+                
                 j_max=i;
                 if(this.node_list[i*2+1].childrenLeft==0){
                     setTimeout(() => {
@@ -584,9 +650,9 @@ class Tree {
                 }, time_show*(k)+time);
                 time+=time_show;
                 //Hiện node đã đc thêm vào cây 
-                if(this.node_list[j].L==this.node_list[j].R)
+               
                         {
-                            this.draw_light_annimation(this.nums_list[this.node_list[j].L],time+time_dequy*them_node);
+                            this.draw_light_annimation(this.nums_list[this.node_list[j].id],time+time_dequy*them_node,this.node_list[j].value);
                             them_node++;
                         }
             }
@@ -621,9 +687,9 @@ class Tree {
                                 time+=time_dequy;
                                 k++;
                                 //Hiện node đã đc thêm vào cây 
-                                if(this.node_list[con_index].L==this.node_list[con_index].R)
+                                
                                 {
-                                    this.draw_light_annimation(this.nums_list[this.node_list[con_index].L],time+time_dequy*them_node);
+                                    this.draw_light_annimation(this.nums_list[this.node_list[con_index].id],time+time_dequy*them_node,this.node_list[con_index].value);
                                     them_node++;
                                 }
                                 setTimeout(() => {
@@ -632,9 +698,9 @@ class Tree {
                                 time+=time_dequy;
                                 k++;
                                 //Hiện node đã đc thêm vào cây 
-                                if(this.node_list[con_index+1].L==this.node_list[con_index+1].R)
+                                
                                 {
-                                    this.draw_light_annimation(this.nums_list[this.node_list[con_index+1].L],time+time_dequy*them_node);
+                                    this.draw_light_annimation(this.nums_list[this.node_list[con_index+1].id],time+time_dequy*them_node,this.node_list[con_index+1].value);
                                     them_node++;
                                 }
                             //Show node phải 
@@ -642,7 +708,11 @@ class Tree {
                                 this.draw_show_node2(this.node_list[cha_index].right,this.node_list[cha_index]);
                                 }, time_dequy*k+time);
                             time+=time_dequy;
-                            
+                            //Hiện node đã được thêm vào cây 
+                            {
+                                this.draw_light_annimation(this.nums_list[this.node_list[index].id],time+time_dequy*them_node,this.node_list[index].value);
+                                them_node++;
+                            }
         
                         }
                         else{
@@ -651,9 +721,9 @@ class Tree {
                                 }, time_dequy*k+time);
                             time+=time_dequy;
                             //Hiện node đã đc thêm vào cây 
-                            if(this.node_list[j+1].L==this.node_list[j+1].R)
+                
                             {
-                                this.draw_light_annimation(this.nums_list[this.node_list[j+1].L],time+time_dequy*them_node);
+                                this.draw_light_annimation(this.nums_list[this.node_list[j+1].id],time+time_dequy*them_node,this.node_list[j+1].value);
                                 them_node++;
 
                             }
@@ -671,7 +741,7 @@ class Tree {
                     this.draw_show_node1(this.node_list[0].right,this.node_list[0]);
                 }, time_dequy*(2)+time);
                 time+=time_dequy;
-                this.draw_light_annimation(this.nums_list[this.node_list[2].L],time+time_dequy*them_node);
+                this.draw_light_annimation(this.nums_list[this.node_list[2].id],time+time_dequy*them_node,this.node_list[2].value);
                                     them_node++;
             }
             //Hiển thị node gốc 
@@ -682,6 +752,11 @@ class Tree {
             setTimeout(() => {
                 this.draw_text_node(this.node_list[0]);
               }, time_show*3+time);
+            //Hiện thị node 0 ở trong mảng 
+              {
+                this.draw_light_annimation(this.nums_list[this.node_list[0].id],time+time_dequy*(them_node+1),this.node_list[0].value);
+                //them_node++;
+            }
             time+=time_show*3;
             console.log(time);
             this.time_build=time;
@@ -695,6 +770,8 @@ class Tree {
                     this.drawLine(this.node_list[i],this.node_list[i].left);
                 if(this.node_list[i].right)
                     this.drawLine(this.node_list[i],this.node_list[i].right);
+                this.nums_list[this.node_list[i].id].value=this.node_list[i].value;
+                this.draw_number_text(this.nums_list[this.node_list[i].id],this.node_list[i].value);
             }
             
         }
@@ -1052,6 +1129,7 @@ class Tree {
                             this.node_list[j].draw1();
                             setTimeout(() => {
                                 this.node_list[j].draw2();
+                                this.draw_light_annimation1(this.nums_list[this.node_list[j].id],0,val);
                             }, time_1);
                             setTimeout(() => {
                                 this.check_minupdate(this.node_list[j], BT, time);
@@ -1105,6 +1183,7 @@ class Tree {
             parent_node.value = Math.min(parent_node.left.value, parent_node.right.value);
             parent_node.color = 'red';
             parent_node.draw2();
+            this.draw_light_annimation1(this.nums_list[parent_node.id],0,parent_node.value);
             time += 2000
             setTimeout(() => {
                 this.check_minupdate(parent_node,BT);
@@ -1128,6 +1207,7 @@ class Tree {
                             this.node_list[j].draw1();
                             setTimeout(() => {
                                 this.node_list[j].draw2();
+                                this.draw_light_annimation1(this.nums_list[this.node_list[j].id],0,val);
                             }, 1000);
                             setTimeout(() => {
                                 this.check_maxupdate(this.node_list[j], BT, time);
@@ -1181,6 +1261,7 @@ class Tree {
             parent_node.value = Math.max(parent_node.left.value, parent_node.right.value);
             parent_node.color = 'red';
             parent_node.draw2();
+            this.draw_light_annimation1(this.nums_list[parent_node.id],0,parent_node.value);
             time += 2000
             setTimeout(() => {
                 this.check_maxupdate(parent_node,BT);
@@ -1205,6 +1286,7 @@ class Tree {
                             this.node_list[j].draw1();
                             setTimeout(() => {
                                 this.node_list[j].draw2();
+                                this.draw_light_annimation1(this.nums_list[this.node_list[j].id],0,val);
                             }, 1000);
                             setTimeout(() => {
                                 this.check_sumupdate(this.node_list[j], BT, time);
@@ -1258,6 +1340,7 @@ class Tree {
             parent_node.value = Number(parent_node.left.value) + Number(parent_node.right.value);
             parent_node.color = 'red';
             parent_node.draw2();
+            this.draw_light_annimation1(this.nums_list[parent_node.id],0,parent_node.value);
             time += 2000
             setTimeout(() => {
                 this.check_sumupdate(parent_node,BT);
@@ -1269,33 +1352,33 @@ class Tree {
 
 
 
-if(op==1){
-    alert('Giá trị nhỏ nhất trong đoạn từ ['+ 
-    qs +
-    ", " +
-    qe + "] là: " +answer,   1200, 250);
-    text('Giá trị nhỏ nhất trong đoạn từ ['+ 
-    qs +
-    ", " +
-    qe + "] là: " +answer,   1200, 250);
-}
-else if(op==2){
-    alert('Giá trị lớn nhất trong đoạn từ ['+ 
-    qs +
-    ", " +
-    qe + "] là: " +answer,  1200, 250);
-    text('Giá trị lớn nhất trong đoạn từ ['+ 
-    qs +
-    ", " +
-    qe + "] là: " +answer,   1200, 250);
-}
-else{
-    alert('Tổng giá trị trong đoạn từ ['+ 
-    qs +
-    ", " +
-    qe + "] là: " +answer,  1200, 250);
-    text('Tổng giá trị trong đoạn từ ['+ 
-    qs +
-    ", " +
-    qe + "] là: " +answer,  1200, 250);
-}
+// if(op==1){
+//     alert('Giá trị nhỏ nhất trong đoạn từ ['+ 
+//     qs +
+//     ", " +
+//     qe + "] là: " +answer,   1200, 250);
+//     text('Giá trị nhỏ nhất trong đoạn từ ['+ 
+//     qs +
+//     ", " +
+//     qe + "] là: " +answer,   1200, 250);
+// }
+// else if(op==2){
+//     alert('Giá trị lớn nhất trong đoạn từ ['+ 
+//     qs +
+//     ", " +
+//     qe + "] là: " +answer,  1200, 250);
+//     text('Giá trị lớn nhất trong đoạn từ ['+ 
+//     qs +
+//     ", " +
+//     qe + "] là: " +answer,   1200, 250);
+// }
+// else{
+//     alert('Tổng giá trị trong đoạn từ ['+ 
+//     qs +
+//     ", " +
+//     qe + "] là: " +answer,  1200, 250);
+//     text('Tổng giá trị trong đoạn từ ['+ 
+//     qs +
+//     ", " +
+//     qe + "] là: " +answer,  1200, 250);
+// }
