@@ -15,3 +15,6 @@
 # Chủ đề Seminar:
 * Tên chủ đề: Cây phân đoạn 
 * Link demo: https://thanhalone0106.github.io/
+* Link slide: https://docs.google.com/presentation/d/1cvwc-1_tRWyQjQtA-AbhP4fG0Qy7p5FB/edit#slide=id.p1
+# Bài tập về nhà mà nhóm làm hằng tuần:
+* Thư mục BTVN: https://github.com/longtran071/CS523.M21.KHCL/tree/main/BTVN
