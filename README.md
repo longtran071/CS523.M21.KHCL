@@ -18,4 +18,4 @@
 * Link slide: https://docs.google.com/presentation/d/1cvwc-1_tRWyQjQtA-AbhP4fG0Qy7p5FB/edit#slide=id.p1
 * Thư mục chứa code của demo : [Segment Tree Code](https://github.com/longtran071/CS523.M21.KHCL/tree/main/Segment%20Tree%20Code)
 # Bài tập về nhà mà nhóm làm hằng tuần:
-* Thư mục BTVN:[BTVN](https://github.com/longtran071/CS523.M21.KHCL/tree/main/BTVN) 
+* Thư mục BTVN: [BTVN](https://github.com/longtran071/CS523.M21.KHCL/tree/main/BTVN) 
